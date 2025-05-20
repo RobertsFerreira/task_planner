@@ -14,6 +14,17 @@ class TaskFormDialogProvider with ChangeNotifier {
   TaskPriority _priority = TaskPriority.medium;
   TaskCategory _category = TaskCategory.personal;
   TaskStatus _status = TaskStatus.pending;
+  Task editTask = Task.empty();
+
+  void loadFromTask(Task task) {
+    titleController.text = task.title;
+    descriptionController.text = task.description ?? '';
+    _selectedDate = task.dueDate;
+    _priority = task.priority;
+    _category = task.category;
+    _status = task.status;
+    editTask = task;
+  }
 
   @override
   void dispose() {
@@ -73,13 +84,20 @@ class TaskFormDialogProvider with ChangeNotifier {
       _setLoading(false);
       return;
     }
+    if (editTask.id.isEmpty) {
+      _createNewTask(taskProvider);
+    } else {
+      _updateTask(taskProvider);
+    }
+
+    _setLoading(false);
+  }
+
+  void _createNewTask(TaskProvider taskProvider) {
     final newTask = Task(
       id: const Uuid().v4(),
       title: titleController.text,
-      description:
-          descriptionController.text.isEmpty
-              ? null
-              : descriptionController.text,
+      description: descriptionController.text,
       dueDate: _selectedDate,
       priority: _priority,
       category: _category,
@@ -87,6 +105,19 @@ class TaskFormDialogProvider with ChangeNotifier {
       createdAt: DateTime.now(),
     );
     taskProvider.addTask(newTask);
-    _setLoading(false);
+  }
+
+  void _updateTask(TaskProvider taskProvider) {
+    final updatedTask = Task(
+      id: editTask.id,
+      title: titleController.text,
+      description: descriptionController.text,
+      dueDate: _selectedDate,
+      priority: _priority,
+      category: _category,
+      status: _status,
+      createdAt: editTask.createdAt,
+    );
+    taskProvider.updateTask(editTask.id, updatedTask);
   }
 }

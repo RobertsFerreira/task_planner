@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:task_planner/src/models/enum_task.dart';
 import 'package:task_planner/src/models/task_model.dart';
+import 'package:task_planner/src/providers/task_form_dialog_provider.dart';
 import 'package:task_planner/src/providers/task_provider.dart';
 
 import 'edit_task_dialog.dart';
@@ -62,7 +63,12 @@ class TaskCard extends StatelessWidget {
                 if (value == 'edit') {
                   showDialog(
                     context: context,
-                    builder: (context) => EditTaskDialog(task: task),
+                    builder: (_) {
+                      return ChangeNotifierProvider(
+                        create: (_) => TaskFormDialogProvider(),
+                        child: EditTaskDialog(task: task),
+                      );
+                    },
                   );
                 } else if (value == 'delete') {
                   showDialog(
