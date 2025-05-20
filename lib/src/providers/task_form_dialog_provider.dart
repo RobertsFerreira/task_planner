@@ -11,7 +11,7 @@ class TaskFormDialogProvider with ChangeNotifier {
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   DateTime _selectedDate = DateTime.now();
-  TaskPriority _priority = TaskPriority.medium;
+  TaskPriority _priority = TaskPriority.low;
   TaskCategory _category = TaskCategory.personal;
   TaskStatus _status = TaskStatus.pending;
   Task editTask = Task.empty();
