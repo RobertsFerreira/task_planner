@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:task_planner/src/models/enum_task.dart';
 import 'package:task_planner/src/providers/task_form_dialog_provider.dart';
+import 'package:task_planner/src/shared/components/dropdown/custom_dropdown.dart';
 import 'package:task_planner/src/shared/formatters/date_formatter.dart';
 
 class AddTaskDialog extends StatefulWidget {
@@ -63,11 +64,9 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
                 ),
               ),
               const SizedBox(height: 16),
-              DropdownButtonFormField<TaskPriority>(
-                decoration: const InputDecoration(
-                  labelText: 'Prioridade',
-                  border: OutlineInputBorder(),
-                ),
+              CustomDropdown<TaskPriority>(
+                label: 'Prioridade',
+                onChanged: dialogProvider.setPriority,
                 value: dialogProvider.priority,
                 items:
                     TaskPriority.values.map((priority) {
@@ -76,14 +75,11 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
                         child: Text(priority.description),
                       );
                     }).toList(),
-                onChanged: dialogProvider.setPriority,
               ),
               const SizedBox(height: 16),
-              DropdownButtonFormField<TaskCategory>(
-                decoration: const InputDecoration(
-                  labelText: 'Categoria',
-                  border: OutlineInputBorder(),
-                ),
+              CustomDropdown<TaskCategory>(
+                label: 'Categoria',
+                onChanged: dialogProvider.setCategory,
                 value: dialogProvider.category,
                 items:
                     TaskCategory.values.map((category) {
@@ -92,14 +88,11 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
                         child: Text(category.description),
                       );
                     }).toList(),
-                onChanged: dialogProvider.setCategory,
               ),
               const SizedBox(height: 16),
-              DropdownButtonFormField<TaskStatus>(
-                decoration: const InputDecoration(
-                  labelText: 'Status',
-                  border: OutlineInputBorder(),
-                ),
+              CustomDropdown<TaskStatus>(
+                label: 'Status',
+                onChanged: dialogProvider.setStatus,
                 value: dialogProvider.status,
                 items:
                     TaskStatus.values.map((status) {
@@ -108,7 +101,6 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
                         child: Text(status.description),
                       );
                     }).toList(),
-                onChanged: dialogProvider.setStatus,
               ),
             ],
           ),
