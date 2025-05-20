@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:task_planner/src/models/enum_task.dart';
-import 'package:task_planner/src/models/task_model.dart';
-import 'package:task_planner/src/providers/task_provider.dart';
+import 'package:task_planner/src/providers/task_form_dialog_provider.dart';
 import 'package:task_planner/src/shared/formatters/date_formatter.dart';
-import 'package:uuid/uuid.dart';
 
 class AddTaskDialog extends StatefulWidget {
   const AddTaskDialog({super.key});
@@ -14,71 +12,19 @@ class AddTaskDialog extends StatefulWidget {
 }
 
 class _AddTaskDialogState extends State<AddTaskDialog> {
-  final _formKey = GlobalKey<FormState>();
-  final _titleController = TextEditingController();
-  final _descriptionController = TextEditingController();
-  DateTime _selectedDate = DateTime.now();
-  TaskPriority _priority = TaskPriority.medium;
-  TaskCategory _category = TaskCategory.personal;
-  TaskStatus _status = TaskStatus.pending;
-
-  @override
-  void dispose() {
-    _titleController.dispose();
-    _descriptionController.dispose();
-    super.dispose();
-  }
-
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: _selectedDate,
-      firstDate: DateTime(2020),
-      lastDate: DateTime(2030),
-      locale: const Locale('pt', 'BR'),
-    );
-    if (picked != null && picked != _selectedDate) {
-      setState(() {
-        _selectedDate = picked;
-      });
-    }
-  }
-
-  void _submitForm() {
-    if (_formKey.currentState!.validate()) {
-      final taskProvider = Provider.of<TaskProvider>(context, listen: false);
-
-      final newTask = Task(
-        id: const Uuid().v4(),
-        title: _titleController.text,
-        description:
-            _descriptionController.text.isEmpty
-                ? null
-                : _descriptionController.text,
-        dueDate: _selectedDate,
-        priority: _priority,
-        category: _category,
-        status: _status,
-        createdAt: DateTime.now(),
-      );
-
-      taskProvider.addTask(newTask);
-      Navigator.of(context).pop();
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
+    final dialogProvider = context.read<TaskFormDialogProvider>();
     return AlertDialog(
       title: const Text('Adicionar Nova Tarefa'),
       content: SingleChildScrollView(
         child: Form(
-          key: _formKey,
+          key: dialogProvider.formKey,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               TextFormField(
-                controller: _titleController,
+                controller: dialogProvider.titleController,
                 decoration: const InputDecoration(
                   labelText: 'Título',
                   border: OutlineInputBorder(),
@@ -92,7 +38,7 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
               ),
               const SizedBox(height: 16),
               TextFormField(
-                controller: _descriptionController,
+                controller: dialogProvider.descriptionController,
                 decoration: const InputDecoration(
                   labelText: 'Descrição',
                   border: OutlineInputBorder(),
@@ -101,7 +47,7 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
               ),
               const SizedBox(height: 16),
               InkWell(
-                onTap: () => _selectDate(context),
+                onTap: () => dialogProvider.selectDate(context),
                 child: InputDecorator(
                   decoration: const InputDecoration(
                     labelText: 'Data de Vencimento',
@@ -110,7 +56,7 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(_selectedDate.dayYearCurrentFormatter),
+                      Text(dialogProvider.selectedDate.dayYearCurrentFormatter),
                       const Icon(Icons.calendar_today),
                     ],
                   ),
@@ -122,7 +68,7 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
                   labelText: 'Prioridade',
                   border: OutlineInputBorder(),
                 ),
-                value: _priority,
+                value: dialogProvider.priority,
                 items:
                     TaskPriority.values.map((priority) {
                       return DropdownMenuItem(
@@ -130,11 +76,7 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
                         child: Text(priority.description),
                       );
                     }).toList(),
-                onChanged: (value) {
-                  setState(() {
-                    _priority = value!;
-                  });
-                },
+                onChanged: dialogProvider.setPriority,
               ),
               const SizedBox(height: 16),
               DropdownButtonFormField<TaskCategory>(
@@ -142,7 +84,7 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
                   labelText: 'Categoria',
                   border: OutlineInputBorder(),
                 ),
-                value: _category,
+                value: dialogProvider.category,
                 items:
                     TaskCategory.values.map((category) {
                       return DropdownMenuItem(
@@ -150,11 +92,7 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
                         child: Text(category.description),
                       );
                     }).toList(),
-                onChanged: (value) {
-                  setState(() {
-                    _category = value!;
-                  });
-                },
+                onChanged: dialogProvider.setCategory,
               ),
               const SizedBox(height: 16),
               DropdownButtonFormField<TaskStatus>(
@@ -162,7 +100,7 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
                   labelText: 'Status',
                   border: OutlineInputBorder(),
                 ),
-                value: _status,
+                value: dialogProvider.status,
                 items:
                     TaskStatus.values.map((status) {
                       return DropdownMenuItem(
@@ -170,11 +108,7 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
                         child: Text(status.description),
                       );
                     }).toList(),
-                onChanged: (value) {
-                  setState(() {
-                    _status = value!;
-                  });
-                },
+                onChanged: dialogProvider.setStatus,
               ),
             ],
           ),
@@ -185,7 +119,13 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
           onPressed: () => Navigator.of(context).pop(),
           child: const Text('Cancelar'),
         ),
-        ElevatedButton(onPressed: _submitForm, child: const Text('Salvar')),
+        ElevatedButton(
+          onPressed: () {
+            dialogProvider.submitForm(context);
+            Navigator.of(context).pop();
+          },
+          child: const Text('Salvar'),
+        ),
       ],
     );
   }

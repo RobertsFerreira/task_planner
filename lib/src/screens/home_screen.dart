@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:task_planner/src/providers/task_form_dialog_provider.dart';
 import 'package:task_planner/src/screens/components/add_task_dialog.dart';
 import 'package:task_planner/src/screens/components/task_stats.dart';
 import 'package:task_planner/src/screens/daily_screen.dart';
@@ -70,7 +71,15 @@ class _HomeScreenState extends State<HomeScreen>
               ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          showDialog(context: context, builder: (_) => const AddTaskDialog());
+          showDialog(
+            context: context,
+            builder: (_) {
+              return ChangeNotifierProvider(
+                create: (_) => TaskFormDialogProvider(),
+                child: const AddTaskDialog(),
+              );
+            },
+          );
         },
         child: const Icon(Icons.add),
       ),
