@@ -22,6 +22,19 @@ class Task {
     required this.createdAt,
   });
 
+  factory Task.empty() {
+    return Task(
+      id: '',
+      title: '',
+      description: null,
+      dueDate: DateTime.now(),
+      priority: TaskPriority.medium,
+      category: TaskCategory.personal,
+      status: TaskStatus.pending,
+      createdAt: DateTime.now(),
+    );
+  }
+
   // Create a copy of the Task object
   // with modified properties
   Task copyWith({
