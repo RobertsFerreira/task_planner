@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:task_planner/src/models/enum_task.dart';
 import 'package:task_planner/src/providers/task_form_dialog_provider.dart';
 import 'package:task_planner/src/shared/components/dropdown/custom_dropdown.dart';
+import 'package:task_planner/src/shared/components/textfield/custom_textfield.dart';
 import 'package:task_planner/src/shared/formatters/date_formatter.dart';
 
 class AddTaskDialog extends StatefulWidget {
@@ -24,12 +25,9 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              TextFormField(
+              CustomTextField(
+                label: 'Titulo',
                 controller: dialogProvider.titleController,
-                decoration: const InputDecoration(
-                  labelText: 'Título',
-                  border: OutlineInputBorder(),
-                ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Por favor, insira um título';
@@ -38,13 +36,16 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
                 },
               ),
               const SizedBox(height: 16),
-              TextFormField(
+              CustomTextField(
+                label: 'Descrição',
                 controller: dialogProvider.descriptionController,
-                decoration: const InputDecoration(
-                  labelText: 'Descrição',
-                  border: OutlineInputBorder(),
-                ),
                 maxLines: 3,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Por favor, insira uma descrição';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 16),
               InkWell(
