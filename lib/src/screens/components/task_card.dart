@@ -17,30 +17,6 @@ class TaskCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final taskProvider = Provider.of<TaskProvider>(context);
     final dateFormat = DateFormat.yMMMd('pt_BR');
-    // Cores para categorias
-    final categoryColors = {
-      TaskCategory.work: Colors.blue,
-      TaskCategory.personal: Colors.purple,
-      TaskCategory.health: Colors.teal,
-      TaskCategory.education: Colors.indigo,
-      TaskCategory.other: Colors.grey,
-    };
-
-    // Tradução das categorias
-    final categoryLabels = {
-      TaskCategory.work: 'Trabalho',
-      TaskCategory.personal: 'Pessoal',
-      TaskCategory.health: 'Saúde',
-      TaskCategory.education: 'Educação',
-      TaskCategory.other: 'Outro',
-    };
-
-    // Tradução dos status
-    final statusLabels = {
-      TaskStatus.pending: 'Pendente',
-      TaskStatus.inProgress: 'Em Progresso',
-      TaskStatus.completed: 'Concluída',
-    };
 
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
@@ -141,40 +117,19 @@ class TaskCard extends StatelessWidget {
                   ),
                 ),
                 Chip(
-                  backgroundColor: categoryColors[task.category]!.withValues(
-                    alpha: 0.1,
-                  ),
-                  side: BorderSide(color: categoryColors[task.category]!),
+                  backgroundColor: task.category.color.withValues(alpha: 0.1),
+                  side: BorderSide(color: task.category.color),
                   label: Text(
-                    categoryLabels[task.category]!,
-                    style: TextStyle(color: categoryColors[task.category]),
+                    task.category.description,
+                    style: TextStyle(color: task.category.color),
                   ),
                 ),
                 Chip(
-                  backgroundColor:
-                      task.status == TaskStatus.completed
-                          ? Colors.green.withValues(alpha: 0.1)
-                          : task.status == TaskStatus.inProgress
-                          ? Colors.blue.withValues(alpha: 0.1)
-                          : Colors.grey.withValues(alpha: 0.1),
-                  side: BorderSide(
-                    color:
-                        task.status == TaskStatus.completed
-                            ? Colors.green
-                            : task.status == TaskStatus.inProgress
-                            ? Colors.blue
-                            : Colors.grey,
-                  ),
+                  backgroundColor: task.status.color.withValues(alpha: 0.1),
+                  side: BorderSide(color: task.status.color),
                   label: Text(
-                    statusLabels[task.status]!,
-                    style: TextStyle(
-                      color:
-                          task.status == TaskStatus.completed
-                              ? Colors.green
-                              : task.status == TaskStatus.inProgress
-                              ? Colors.blue
-                              : Colors.grey,
-                    ),
+                    task.status.description,
+                    style: TextStyle(color: task.status.color),
                   ),
                 ),
               ],
