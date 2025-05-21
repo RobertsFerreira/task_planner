@@ -15,14 +15,15 @@ enum TaskPriority {
 }
 
 enum TaskCategory {
-  work(description: "Work"),
-  personal(description: "Personal"),
-  health(description: "Health"),
-  education(description: "Education"),
-  other(description: "Other");
+  work(description: "Work", color: Colors.blue),
+  personal(description: "Personal", color: Colors.purple),
+  health(description: "Health", color: Colors.teal),
+  education(description: "Education", color: Colors.indigo),
+  other(description: "Other", color: Colors.grey);
 
   final String description;
-  const TaskCategory({required this.description});
+  final Color color;
+  const TaskCategory({required this.description, required this.color});
 
   static TaskCategory fromIndex(int index) {
     return TaskCategory.values[index];
