@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:task_planner/src/models/enum_task.dart';
 import 'package:task_planner/src/models/task_model.dart';
 import 'package:task_planner/src/providers/task_form_dialog_provider.dart';
 import 'package:task_planner/src/providers/task_provider.dart';
+import 'package:task_planner/src/shared/formatters/date_formatter.dart';
 
 import 'edit_task_dialog.dart';
 
@@ -16,7 +16,6 @@ class TaskCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final taskProvider = Provider.of<TaskProvider>(context);
-    final dateFormat = DateFormat.yMMMd('pt_BR');
 
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
@@ -29,7 +28,7 @@ class TaskCard extends StatelessWidget {
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
             subtitle: Text(
-              dateFormat.format(task.dueDate),
+              task.dueDate.dayYearCurrentFormatter,
               style: TextStyle(
                 color: Theme.of(context).textTheme.bodySmall?.color,
               ),
