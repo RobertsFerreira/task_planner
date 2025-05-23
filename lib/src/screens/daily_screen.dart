@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:task_planner/src/models/enum_task.dart';
 import 'package:task_planner/src/models/task_model.dart';
+import 'package:task_planner/src/screens/components/date_picker.dart';
 import 'package:task_planner/src/screens/components/empty_state.dart';
 import 'package:task_planner/src/screens/components/task_card.dart';
 import 'package:task_planner/src/shared/formatters/date_formatter.dart';
@@ -181,12 +182,9 @@ class _DailyScreenState extends State<DailyScreen> {
   Future<void> _selectDate(BuildContext context) async {
     final provider = context.read<TaskProvider>();
     final DateTime initialDate = provider.selectedDay;
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: initialDate,
-      firstDate: DateTime(2020),
-      lastDate: DateTime(2030),
-      locale: const Locale('pt', 'BR'),
+    final DateTime? picked = await DatePicker.openDatePicker(
+      context,
+      initialDate,
     );
     if (picked != null && picked != initialDate) {
       provider.setSelectedDate(picked);

@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:task_planner/src/models/enum_task.dart';
 import 'package:task_planner/src/models/task_model.dart';
 import 'package:task_planner/src/providers/task_provider.dart';
+import 'package:task_planner/src/screens/components/date_picker.dart';
 import 'package:uuid/uuid.dart';
 
 class TaskFormDialogProvider with ChangeNotifier {
@@ -64,12 +65,9 @@ class TaskFormDialogProvider with ChangeNotifier {
   }
 
   Future<void> selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: _selectedDate,
-      firstDate: DateTime(2020),
-      lastDate: DateTime(2030),
-      locale: const Locale('pt', 'BR'),
+    final DateTime? picked = await DatePicker.openDatePicker(
+      context,
+      _selectedDate,
     );
     if (picked != null && picked != _selectedDate) {
       _selectedDate = picked;
