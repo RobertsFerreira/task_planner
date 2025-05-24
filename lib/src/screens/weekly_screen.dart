@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:task_planner/src/models/enum_task.dart';
 import 'package:task_planner/src/screens/components/calendars/custom_calender.dart';
 import 'package:task_planner/src/screens/components/states/empty_state.dart';
 import 'package:task_planner/src/screens/components/tasks/task_card.dart';
 import 'package:task_planner/src/shared/formatters/date_formatter.dart';
+import 'package:task_planner/src/shared/formatters/double_formatter.dart';
 
 import '../providers/task_provider.dart';
 
@@ -152,7 +154,7 @@ class _WeeklyScreenState extends State<WeeklyScreen> {
 
     // Calcular porcentagem de conclusão
     final completionPercentage =
-        totalTasks > 0 ? (completedTasks / totalTasks * 100).round() : 0;
+        totalTasks > 0.0 ? (completedTasks / totalTasks * 100) : 0.0;
 
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -180,21 +182,21 @@ class _WeeklyScreenState extends State<WeeklyScreen> {
                   completedTasks.toString(),
                   'Concluídas',
                   Icons.check_circle,
-                  color: Colors.green,
+                  color: TaskStatus.completed.color,
                 ),
                 _buildStatItem(
                   context,
                   inProgressTasks.toString(),
                   'Em Progresso',
                   Icons.timelapse,
-                  color: Colors.blue,
+                  color: TaskStatus.inProgress.color,
                 ),
                 _buildStatItem(
                   context,
                   pendingTasks.toString(),
                   'Pendentes',
                   Icons.pending_actions,
-                  color: Colors.orange,
+                  color: TaskStatus.pending.color,
                 ),
               ],
             ),
@@ -206,7 +208,7 @@ class _WeeklyScreenState extends State<WeeklyScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Progresso: $completionPercentage%',
+                      'Progresso: ${completionPercentage.toPercent}',
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                     Text('$completedTasks/$totalTasks'),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:task_planner/src/models/enum_task.dart';
 import 'package:task_planner/src/providers/task_provider.dart';
+import 'package:task_planner/src/shared/formatters/double_formatter.dart';
 
 class TaskStats extends StatelessWidget {
   const TaskStats({super.key});
@@ -17,13 +18,9 @@ class TaskStats extends StatelessWidget {
     final completedTasks = taskProvider.getTasksByStatus(TaskStatus.completed);
 
     final completionRate =
-        tasks.isNotEmpty
-            ? (completedTasks.length / tasks.length * 100).round()
-            : 0;
+        tasks.isNotEmpty ? (completedTasks.length / tasks.length * 100) : 0.0;
     final inProgressRate =
-        tasks.isNotEmpty
-            ? (inProgressTasks.length / tasks.length * 100).round()
-            : 0;
+        tasks.isNotEmpty ? (inProgressTasks.length / tasks.length * 100) : 0.0;
 
     return Wrap(
       spacing: 2,
@@ -40,7 +37,7 @@ class TaskStats extends StatelessWidget {
           context,
           'Tarefas Concluídas',
           completedTasks.length.toString(),
-          '$completionRate% de todas as tarefas',
+          '${completionRate.toPercent} de todas as tarefas',
           Icons.check_circle_outline,
           color: TaskStatus.completed.color,
         ),
@@ -49,7 +46,7 @@ class TaskStats extends StatelessWidget {
           context,
           'Em Progresso',
           inProgressTasks.length.toString(),
-          '$inProgressRate% de todas as tarefas',
+          '${inProgressRate.toPercent} de todas as tarefas',
           Icons.timelapse,
           color: TaskStatus.inProgress.color,
         ),
