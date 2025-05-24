@@ -40,12 +40,6 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
                 label: 'Descrição',
                 controller: dialogProvider.descriptionController,
                 maxLines: 3,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Por favor, insira uma descrição';
-                  }
-                  return null;
-                },
               ),
               const SizedBox(height: 16),
               InkWell(
