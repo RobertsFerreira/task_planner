@@ -3,9 +3,9 @@ import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:task_planner/src/models/enum_task.dart';
 import 'package:task_planner/src/models/task_model.dart';
-import 'package:task_planner/src/screens/components/date_picker.dart';
-import 'package:task_planner/src/screens/components/empty_state.dart';
-import 'package:task_planner/src/screens/components/task_card.dart';
+import 'package:task_planner/src/screens/components/calendars/date_picker.dart';
+import 'package:task_planner/src/screens/components/states/empty_state.dart';
+import 'package:task_planner/src/screens/components/tasks/task_card.dart';
 import 'package:task_planner/src/shared/formatters/date_formatter.dart';
 
 import '../providers/task_provider.dart';

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:task_planner/src/screens/components/custom_calender.dart';
-import 'package:task_planner/src/screens/components/empty_state.dart';
-import 'package:task_planner/src/screens/components/task_card.dart';
+import 'package:task_planner/src/screens/components/calendars/custom_calender.dart';
+import 'package:task_planner/src/screens/components/states/empty_state.dart';
+import 'package:task_planner/src/screens/components/tasks/task_card.dart';
 import 'package:task_planner/src/shared/formatters/date_formatter.dart';
 
 import '../providers/task_provider.dart';

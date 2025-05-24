@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:task_planner/src/models/enum_task.dart';
 import 'package:task_planner/src/models/task_model.dart';
 import 'package:task_planner/src/providers/task_provider.dart';
-import 'package:task_planner/src/screens/components/date_picker.dart';
+import 'package:task_planner/src/screens/components/calendars/date_picker.dart';
 import 'package:uuid/uuid.dart';
 
 class TaskFormDialogProvider with ChangeNotifier {

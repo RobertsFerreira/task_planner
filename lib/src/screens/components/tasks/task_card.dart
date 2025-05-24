@@ -6,7 +6,7 @@ import 'package:task_planner/src/providers/task_form_dialog_provider.dart';
 import 'package:task_planner/src/providers/task_provider.dart';
 import 'package:task_planner/src/shared/formatters/date_formatter.dart';
 
-import 'edit_task_dialog.dart';
+import '../dialogs/edit_task_dialog.dart';
 
 class TaskCard extends StatelessWidget {
   final Task task;
@@ -96,11 +96,14 @@ class TaskCard extends StatelessWidget {
                   ],
             ),
           ),
-          if (task.description != null && task.description!.isNotEmpty)
-            Padding(
+
+          Offstage(
+            offstage: task.description == null || task.description!.isEmpty,
+            child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Text(task.description!),
             ),
+          ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Wrap(
@@ -127,7 +130,7 @@ class TaskCard extends StatelessWidget {
                   backgroundColor: task.status.color.withValues(alpha: 0.1),
                   side: BorderSide(color: task.status.color),
                   label: Text(
-                    task.status.description,
+                    'a${task.status.description}',
                     style: TextStyle(color: task.status.color),
                   ),
                 ),

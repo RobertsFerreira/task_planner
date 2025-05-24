@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:task_planner/src/providers/task_form_dialog_provider.dart';
-import 'package:task_planner/src/screens/components/add_task_dialog.dart';
-import 'package:task_planner/src/screens/components/task_stats.dart';
+import 'package:task_planner/src/screens/components/dialogs/add_task_dialog.dart';
+import 'package:task_planner/src/screens/components/tasks/task_stats.dart';
 import 'package:task_planner/src/screens/daily_screen.dart';
 import 'package:task_planner/src/screens/monthly_screen.dart';
 import 'package:task_planner/src/screens/weekly_screen.dart';
