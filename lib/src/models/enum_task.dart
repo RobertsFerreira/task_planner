@@ -6,9 +6,9 @@ mixin TaskEnumProperties on Enum {
 }
 
 enum TaskPriority with TaskEnumProperties {
-  low(description: "Low priority", color: Colors.green),
-  medium(description: "Medium priority", color: Colors.orange),
-  high(description: "High priority", color: Colors.red);
+  low(description: "Baixa Prioridade", color: Colors.green),
+  medium(description: "Média Prioridade", color: Colors.orange),
+  high(description: "Alta Prioridade", color: Colors.red);
 
   @override
   final String description;
@@ -22,11 +22,11 @@ enum TaskPriority with TaskEnumProperties {
 }
 
 enum TaskCategory with TaskEnumProperties {
-  work(description: "Work", color: Colors.blue),
-  personal(description: "Personal", color: Colors.purple),
-  health(description: "Health", color: Colors.teal),
-  education(description: "Education", color: Colors.indigo),
-  other(description: "Other", color: Colors.grey);
+  work(description: "Trabalho", color: Colors.blue),
+  personal(description: "Pessoal", color: Colors.purple),
+  health(description: "Saúde", color: Colors.teal),
+  education(description: "Educação", color: Colors.indigo),
+  other(description: "Outros", color: Colors.grey);
 
   @override
   final String description;
@@ -40,9 +40,9 @@ enum TaskCategory with TaskEnumProperties {
 }
 
 enum TaskStatus with TaskEnumProperties {
-  pending(description: "Pending", color: Colors.orange),
-  inProgress(description: "In Progress", color: Colors.blue),
-  completed(description: "Completed", color: Colors.green);
+  pending(description: "Pendente", color: Colors.orange),
+  inProgress(description: "Em Progresso", color: Colors.blue),
+  completed(description: "Completado", color: Colors.green);
 
   @override
   final String description;

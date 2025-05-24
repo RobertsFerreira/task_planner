@@ -129,32 +129,34 @@ class TaskCard extends StatelessWidget {
   }
 
   Widget _buildActionButtons(BuildContext context, TaskProvider taskProvider) {
+    final inProgressTask = TaskStatus.inProgress;
+    final completedTask = TaskStatus.completed;
     if (task.status == TaskStatus.pending) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Expanded(
             child: OutlinedButton.icon(
-              icon: const Icon(Icons.timelapse, color: Colors.blue),
-              label: const Text(
-                'Em Progresso',
-                style: TextStyle(color: Colors.blue),
+              icon: Icon(Icons.timelapse, color: inProgressTask.color),
+              label: Text(
+                inProgressTask.description,
+                style: TextStyle(color: inProgressTask.color),
               ),
               onPressed: () {
-                taskProvider.updateTaskStatus(task.id, TaskStatus.inProgress);
+                taskProvider.updateTaskStatus(task.id, inProgressTask);
               },
             ),
           ),
           const SizedBox(width: 8),
           Expanded(
             child: OutlinedButton.icon(
-              icon: const Icon(Icons.check_circle, color: Colors.green),
-              label: const Text(
+              icon: Icon(Icons.check_circle, color: completedTask.color),
+              label: Text(
                 'Concluir',
-                style: TextStyle(color: Colors.green),
+                style: TextStyle(color: completedTask.color),
               ),
               onPressed: () {
-                taskProvider.updateTaskStatus(task.id, TaskStatus.completed);
+                taskProvider.updateTaskStatus(task.id, completedTask);
               },
             ),
           ),
@@ -162,10 +164,10 @@ class TaskCard extends StatelessWidget {
       );
     } else if (task.status == TaskStatus.inProgress) {
       return OutlinedButton.icon(
-        icon: const Icon(Icons.check_circle, color: Colors.green),
-        label: const Text('Concluir', style: TextStyle(color: Colors.green)),
+        icon: Icon(Icons.check_circle, color: completedTask.color),
+        label: Text('Concluir', style: TextStyle(color: completedTask.color)),
         onPressed: () {
-          taskProvider.updateTaskStatus(task.id, TaskStatus.completed);
+          taskProvider.updateTaskStatus(task.id, completedTask);
         },
       );
     } else {
