@@ -53,9 +53,12 @@ class _HomeScreenState extends State<HomeScreen>
               ? const Center(child: CircularProgressIndicator())
               : Column(
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.all(16.0),
-                    child: TaskStats(),
+                  Offstage(
+                    offstage: MediaQuery.sizeOf(context).width < 600,
+                    child: const Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: TaskStats(),
+                    ),
                   ),
                   Expanded(
                     child: TabBarView(
