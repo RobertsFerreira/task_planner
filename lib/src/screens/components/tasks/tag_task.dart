@@ -18,21 +18,5 @@ class _TagTaskState extends State<TagTask> {
       side: BorderSide(color: tag.color),
       label: Text(tag.description, style: TextStyle(color: tag.color)),
     );
-    // Chip(
-    //   backgroundColor: task.category.color.withValues(alpha: 0.1),
-    //   side: BorderSide(color: task.category.color),
-    //   label: Text(
-    //     task.category.description,
-    //     style: TextStyle(color: task.category.color),
-    //   ),
-    // ),
-    // Chip(
-    //   backgroundColor: task.status.color.withValues(alpha: 0.1),
-    //   side: BorderSide(color: task.status.color),
-    //   label: Text(
-    //     'a${task.status.description}',
-    //     style: TextStyle(color: task.status.color),
-    //   ),
-    // ),
   }
 }
