@@ -4,9 +4,12 @@ import 'package:task_planner/src/models/enum_task.dart';
 import 'package:task_planner/src/models/task_model.dart';
 import 'package:task_planner/src/providers/task_form_dialog_provider.dart';
 import 'package:task_planner/src/providers/task_provider.dart';
+import 'package:task_planner/src/screens/components/tasks/tag_task.dart';
 import 'package:task_planner/src/shared/formatters/date_formatter.dart';
 
 import '../dialogs/edit_task_dialog.dart';
+
+enum Teste { a }
 
 class TaskCard extends StatelessWidget {
   final Task task;
@@ -110,30 +113,9 @@ class TaskCard extends StatelessWidget {
               spacing: 8.0,
               runSpacing: 8.0,
               children: [
-                Chip(
-                  backgroundColor: task.priority.color.withValues(alpha: 0.1),
-                  side: BorderSide(color: task.priority.color),
-                  label: Text(
-                    task.priority.description,
-                    style: TextStyle(color: task.priority.color),
-                  ),
-                ),
-                Chip(
-                  backgroundColor: task.category.color.withValues(alpha: 0.1),
-                  side: BorderSide(color: task.category.color),
-                  label: Text(
-                    task.category.description,
-                    style: TextStyle(color: task.category.color),
-                  ),
-                ),
-                Chip(
-                  backgroundColor: task.status.color.withValues(alpha: 0.1),
-                  side: BorderSide(color: task.status.color),
-                  label: Text(
-                    'a${task.status.description}',
-                    style: TextStyle(color: task.status.color),
-                  ),
-                ),
+                TagTask(tag: task.priority),
+                TagTask(tag: task.category),
+                TagTask(tag: task.status),
               ],
             ),
           ),
