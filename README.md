@@ -72,5 +72,3 @@ git clone https://github.com/RobertsFerreira/task_planner.git
   Para o layout foi utilizado a [V0](https://v0.dev/), mesmo gerando o código em **react** da para obter ideias de layout para fazer e caso queira pedir ela para transcrever para **dart/flutter**. Para ele gerar o layout pedi para gerar um layout com o objetivo da aplicação ser um gerenciador de tarefas pessoal e após isso analisei ele e fui solicitando melhorias nele apontado o local ou indicando a informação a ser adicionada.
   
   Para correções de bugs, retiradas de duvida sobre uso do provider foi utilizado o [GPT](https://chatgpt.com/) e o [CLAUDE](https://claude.ai/). Nas correções de bugs era repassado a mensagem de erro e pedia a explicação do motivo dele ocorrer, principalmente para bugs de layout, quando havia dúvidas de como era utilizado o provider, para isso eu utilizava de exemplos do codigo montado com outras bibliotecas, como o MOBX e pedia para ele demonstrar como seria a ideia usando o provider.
-
-## Outros detalhes que achar relevantes sobre seu processo criativo e de desenvolvimento
